@@ -1,100 +1,168 @@
-# Welcome to React Router!
+# 📷 Fujifilm 필름 레시피 공유 SNS 기능 명세서
 
-A modern, production-ready template for building full-stack React applications using React Router.
+## 1. 개요
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+Fujifilm 카메라로 촬영한 사진과 필름 레시피를 공유하는 마이크로 SNS입니다.  
+EXIF 메타데이터를 자동으로 분석하여 사용자가 쉽게 필름 시뮬레이션을 공유하고,  
+다른 사람들과 소통할 수 있도록 합니다.
 
-## Features
+## 2. 주요 기능
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+### 2.1. 회원가입 및 로그인
 
-## Getting Started
+- 이메일 및 비밀번호로 회원가입/로그인 (Supabase Auth 사용)
+- OAuth 로그인 (Google, Apple)
+- 프로필 설정 (닉네임, 프로필 이미지, SNS 계정)
+- 비밀번호 재설정 기능
 
-### Installation
+### 2.2. 사진 업로드 & EXIF 자동 분석
 
-Install the dependencies:
+- PNG, JPEG 파일 업로드
+- EXIF 데이터를 읽어 다음 정보 자동 입력:
+  - 카메라 모델
+  - 렌즈 정보
+  - 필름 시뮬레이션
+  - 화이트 밸런스, 샤프니스, 섀도우 등
+- 수동 입력/수정 가능
+- 게시글 작성 및 저장
 
-```bash
-npm install
-```
+### 2.3. 필름 레시피 공유
 
-### Development
+- 사용자 정의 필름 레시피 저장 가능
+- 레시피 목록을 사용자 프로필에서 관리
+- 레시피 검색 및 필터 (카메라 모델, 필름 시뮬레이션 등)
 
-Start the development server with HMR:
+### 2.4. SNS 기능
 
-```bash
-npm run dev
-```
+- 좋아요(❤️) 기능
+- 댓글 작성 및 삭제
+- 팔로우/언팔로우
+- 게시물 공유 (링크 복사, SNS 공유)
 
-Your application will be available at `http://localhost:5173`.
+### 2.5. 뱃지 시스템 (Gamification) - Optional
 
-## Building for Production
+- 특정 조건을 만족하면 자동으로 뱃지 획득
+  - 예: "탐험가" (5개 이상의 필름 시뮬레이션 공유)
+- 뱃지 목록을 프로필에서 확인 가능
+- 뱃지 데이터 저장 및 업데이트 로직 구현
 
-Create a production build:
+### 2.6. 검색 및 탐색 기능
 
-```bash
-npm run build
-```
+- Daily, Weekly, Monthly 인기 레시피
+- 필름시뮬레이션별 보기
+- 카메라(센서 -> 카메라)별 보기
+- 태그 검색 (예: "#ClassicChrome") - Optional
 
-## Deployment
+### 2.7. 알림 시스템
 
-### Docker Deployment
-
-This template includes three Dockerfiles optimized for different package managers:
-
-- `Dockerfile` - for npm
-- `Dockerfile.pnpm` - for pnpm
-- `Dockerfile.bun` - for bun
-
-To build and run using Docker:
-
-```bash
-# For npm
-docker build -t my-app .
-
-# For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
-
-# For bun
-docker build -f Dockerfile.bun -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+- 좋아요, 댓글, 팔로우 시 알림 받기
+- 신규 뱃지 획득 시 알림 - Optional
 
 ---
 
-Built with ❤️ using React Router.
+## 3. 예상되는 주요 화면 (UI/UX)
+
+### 3.1. 회원가입 & 로그인 화면
+
+- 이메일/비밀번호 로그인
+- OAuth 로그인 (Google, Apple, Kakao)
+- 비밀번호 찾기 기능
+
+### 3.2. 홈 화면
+
+- 최신 게시물 피드
+- 인기 레시피 추천
+- 커뮤니티 게시글
+
+### 3.3. 게시글 업로드 화면
+
+- 사진 업로드 (EXIF 자동 분석)
+- 필름 시뮬레이션 및 설정 값 입력
+- 설명 추가 후 게시
+
+### 3.4. 게시물 상세 화면
+
+- 사진 및 EXIF 정보 표시
+- 좋아요, 댓글 기능
+- 필름 레시피 적용하기 버튼
+
+### 3.5. 마이페이지 (프로필 화면)
+
+- 사용자의 게시글 목록
+- 저장한 필름 레시피 목록
+- 획득한 뱃지 표시
+- 설정 (프로필 변경, 로그아웃 등)
+
+### 3.6. 알림 화면
+
+- 좋아요, 댓글, 팔로우 알림 표시
+- 신규 뱃지 획득 알림
+
+---
+
+## 4. 데이터 구조
+
+### 4.1. `users` (사용자 정보)
+
+| 필드명        | 타입      | 설명              |
+| ------------- | --------- | ----------------- |
+| id            | UUID      | 사용자 고유 ID    |
+| email         | TEXT      | 이메일            |
+| username      | TEXT      | 닉네임            |
+| profile_image | TEXT      | 프로필 이미지 URL |
+| created_at    | TIMESTAMP | 가입일            |
+
+### 4.2. `posts` (게시물)
+
+| 필드명     | 타입      | 설명                          |
+| ---------- | --------- | ----------------------------- |
+| id         | UUID      | 게시물 ID                     |
+| user_id    | UUID      | 작성자 ID (users 테이블 참조) |
+| image_url  | TEXT      | 사진 URL                      |
+| caption    | TEXT      | 설명                          |
+| exif_data  | JSONB     | 카메라 EXIF 정보              |
+| created_at | TIMESTAMP | 게시일                        |
+
+### 4.3. `recipes` (필름 레시피)
+
+| 필드명     | 타입      | 설명                       |
+| ---------- | --------- | -------------------------- |
+| id         | UUID      | 레시피 ID                  |
+| user_id    | UUID      | 작성자 ID                  |
+| name       | TEXT      | 레시피 이름                |
+| settings   | JSONB     | 필름 시뮬레이션 및 설정 값 |
+| created_at | TIMESTAMP | 등록일                     |
+
+### 4.4. `badges` (뱃지 목록)
+
+| 필드명      | 타입   | 설명      |
+| ----------- | ------ | --------- |
+| id          | SERIAL | 뱃지 ID   |
+| name        | TEXT   | 뱃지 이름 |
+| description | TEXT   | 설명      |
+| condition   | JSONB  | 획득 조건 |
+
+### 4.5. `user_badges` (사용자 뱃지 보유 정보)
+
+| 필드명   | 타입    | 설명      |
+| -------- | ------- | --------- |
+| id       | SERIAL  | 고유 ID   |
+| user_id  | UUID    | 사용자 ID |
+| badge_id | INTEGER | 뱃지 ID   |
+
+---
+
+## 5. 개발 우선순위 (MVP)
+
+1️⃣ **기본 기능** (회원가입, 로그인, 사진 업로드, EXIF 추출, 게시글 작성)  
+2️⃣ **SNS 기능** (좋아요, 댓글, 팔로우, 검색)  
+3️⃣ **뱃지 시스템** (핵심 뱃지 3~5개 먼저 적용)  
+4️⃣ **알림 시스템** (기본 알림 기능)
+
+---
+
+## 6. 향후 업데이트 계획
+
+- 필름 레시피 공유 기능 확장 (북마크, 인기 레시피)
+- 뱃지 시스템 확장 (다양한 뱃지 추가)
+- AI 기반 필름 레시피 추천 기능

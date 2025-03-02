@@ -10,26 +10,43 @@ import {
 } from "./ui/navigation-menu";
 import { Separator } from "./ui/separator";
 import { cn } from "~/lib/utils";
-
+import { Button } from "./ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
+import {
+  BellIcon,
+  LogOutIcon,
+  UserIcon,
+  LayoutDashboardIcon,
+  MessageCircleIcon,
+} from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuGroup,
+} from "./ui/dropdown-menu";
 const menus = [
   {
     name: "Recipes",
     to: "/recipes",
     items: [
       {
-        name: "All Recipes",
+        name: "Leaderboard",
         description: "View all recipes",
-        to: "/recipes",
+        to: "/recipes/leaderboards",
       },
       {
-        name: "Top Recipes",
-        description: "See the top recipes",
-        to: "/recipes?sort=top",
+        name: "Film Simulations",
+        description: "See the recipes for each film simulation",
+        to: "/recipes/film-simulations",
       },
       {
-        name: "New Recipes",
-        description: "See the latest recipes",
-        to: "/recipes?sort=new",
+        name: "Cameras",
+        description: "See the recipes for each camera",
+        to: "/recipes/cameras",
       },
       {
         name: "Create Recipe",
@@ -48,6 +65,11 @@ const menus = [
         to: "/community",
       },
       {
+        name: "Top Posts",
+        description: "See the top posts in our community",
+        to: "/community?sort=top",
+      },
+      {
         name: "New Posts",
         description: "See the latest posts in our community",
         to: "/community?sort=new",
@@ -59,17 +81,17 @@ const menus = [
       },
     ],
   },
-  {
-    name: "About",
-    to: "/about",
-  },
-  {
-    name: "FAQ",
-    to: "/faq",
-  },
 ];
 
-export default function Navigation() {
+export default function Navigation({
+  isLoggedIn,
+  hasMessages,
+  hasNotifications,
+}: {
+  isLoggedIn: boolean;
+  hasMessages: boolean;
+  hasNotifications: boolean;
+}) {
   return (
     <nav className="flex px-20 h-16 items-center justify-between backdrop-blur fixed top-0 left-0 right-0 z-50 bg-background/50">
       <div className="flex items-center">
@@ -122,6 +144,71 @@ export default function Navigation() {
           </NavigationMenuList>
         </NavigationMenu>
       </div>
+      {isLoggedIn ? (
+        <div className="flex gap-2">
+          <Button size={"icon"} variant={"ghost"} asChild className="relative">
+            <Link to="/notifications">
+              <BellIcon className="w-4 h-4" />
+              {hasNotifications && (
+                <div className="bg-red-500 rounded-full size-2 absolute top-1.5 right-1.5"></div>
+              )}
+            </Link>
+          </Button>
+          <Button size={"icon"} variant={"ghost"} asChild className="relative">
+            <Link to="/my/messages">
+              <MessageCircleIcon className="w-4 h-4" />
+              {hasMessages && (
+                <span className="bg-red-500 rounded-full size-2 absolute top-1.5 right-1.5"></span>
+              )}
+            </Link>
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel>
+                <p className="font-medium">John Doe</p>
+                <p className="text-sm text-muted-foreground">john@doe.com</p>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem asChild>
+                  <Link to="/my/dashboard">
+                    <LayoutDashboardIcon />
+                    Dashboard
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/my/profile">
+                    <UserIcon />
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link to="/auth/logout">
+                  <LogOutIcon />
+                  Logout
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      ) : (
+        <div className="flex gap-2">
+          <Button asChild variant={"secondary"}>
+            <Link to="/login">Login</Link>
+          </Button>
+          <Button asChild>
+            <Link to="/join">Join</Link>
+          </Button>
+        </div>
+      )}
     </nav>
   );
 }
