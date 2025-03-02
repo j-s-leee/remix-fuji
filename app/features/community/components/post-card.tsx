@@ -26,7 +26,7 @@ interface PostCardProps {
     comments: number;
     likes: number;
   };
-  imageUrl: string;
+  imageUrl?: string;
   delay?: number;
 }
 
@@ -42,7 +42,7 @@ export function PostCard({
   delay = 0,
 }: PostCardProps) {
   return (
-    <Link to={`/community/post/${id}`}>
+    <Link to={`/community/post/${id}`} className="">
       <BlurFade delay={delay} inView>
         <Card>
           <CardHeader className="flex flex-row gap-2 items-center justify-between">
@@ -64,27 +64,30 @@ export function PostCard({
               {content}
             </p>
             <div className="flex flex-row gap-2 justify-end">
-              <Button variant={"ghost"}>
+              <Button variant={"ghost"} size="sm">
                 <EyeIcon className="size-4" />
                 {stats.views}
               </Button>
-              <Button variant={"ghost"}>
+              <Button variant={"ghost"} size="sm">
                 <MessageCircleIcon className="size-4" />
                 {stats.comments}
               </Button>
-              <Button variant={"ghost"}>
+              <Button variant={"ghost"} size="sm">
                 <HeartIcon className="size-4" />
                 {stats.likes}
               </Button>
             </div>
           </CardContent>
-          <CardFooter>
-            <img
-              className="size-full rounded-lg object-contain"
-              src={imageUrl}
-              alt={title}
-            />
-          </CardFooter>
+          {imageUrl && (
+            <CardFooter>
+              <img
+                className="size-full rounded-lg object-contain"
+                src={imageUrl}
+                alt={title}
+                loading="lazy"
+              />
+            </CardFooter>
+          )}
         </Card>
       </BlurFade>
     </Link>
