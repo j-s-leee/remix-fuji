@@ -43,14 +43,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <>
+    <div className="py-28">
       <Navigation
-        isLoggedIn={false}
+        isLoggedIn={true}
         hasMessages={false}
         hasNotifications={true}
       />
       <Outlet />
-    </>
+    </div>
   );
 }
 
