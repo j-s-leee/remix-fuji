@@ -1,11 +1,12 @@
 import { Link } from "react-router";
 import { Button } from "~/common/components/ui/button";
 import { BlurFade } from "~/common/components/magicui/blur-fade";
-import { EyeIcon, HeartIcon } from "lucide-react";
+import { EyeIcon, FilmIcon, HeartIcon } from "lucide-react";
 
 interface RecipeCardProps {
   id: string | number;
   imageUrl: string;
+  filmSimulation: string;
   stats: {
     views: number;
     likes: number;
@@ -16,6 +17,7 @@ interface RecipeCardProps {
 export function RecipeCard({
   id,
   imageUrl,
+  filmSimulation,
   stats,
   delay = 0,
 }: RecipeCardProps) {
@@ -28,7 +30,7 @@ export function RecipeCard({
           className="w-full rounded-lg object-cover"
           loading="lazy"
         />
-        <div className="absolute bottom-2 right-2 flex gap-2">
+        <div className="absolute bottom-2 right-2 flex flex-row-reverse flex-wrap-reverse gap-2">
           <Button
             variant={"ghost"}
             size={"sm"}
@@ -44,6 +46,14 @@ export function RecipeCard({
           >
             <HeartIcon className="size-4" />
             {stats.likes}
+          </Button>
+          <Button
+            variant={"ghost"}
+            size={"sm"}
+            className="bg-background/80 backdrop-blur-sm"
+          >
+            <FilmIcon className="size-4" />
+            {filmSimulation}
           </Button>
         </div>
       </BlurFade>

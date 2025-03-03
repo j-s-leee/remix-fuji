@@ -44,6 +44,7 @@ export default function HomePage() {
             <RecipeCard
               id={idx}
               imageUrl={imageUrl}
+              filmSimulation="Classic Chrome"
               stats={{
                 views: 27,
                 likes: 3,
