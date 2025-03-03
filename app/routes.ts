@@ -38,7 +38,7 @@ export default [
     ]),
     ...prefix("cameras", [
       index("features/recipes/pages/cameras-page.tsx"),
-      route("/:camera", "features/recipes/pages/recipe-camera-page.tsx"),
+      route("/:camera", "features/recipes/pages/camera-page.tsx"),
     ]),
   ]),
   ...prefix("community", [
