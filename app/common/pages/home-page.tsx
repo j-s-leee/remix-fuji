@@ -3,7 +3,7 @@ import Particle from "~/features/recipes/components/particle";
 import { Button } from "../components/ui/button";
 import { PostCard } from "~/features/community/components/post-card";
 import { RecipeCard } from "~/features/recipes/components/recipe-card";
-
+import { BlurFade } from "~/common/components/magicui/blur-fade";
 const postImages = Array.from({ length: 8 }, (_, i) => {
   const hasImage = i % 2 === 0 ? true : false;
   const isLandscape = true;
@@ -27,18 +27,20 @@ export default function HomePage() {
       <Particle />
 
       <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4 space-y-4 [column-fill:_balance] p-4 md:p-0">
-        <div className="mb-8">
-          <h2 className="text-4xl font-bold leading-tight tracking-tight">
-            Find your favorite recipes
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-            quos.
-          </p>
-          <Button variant={"link"} asChild>
-            <Link to="/recipes">Explore all recipes &rarr;</Link>
-          </Button>
-        </div>
+        <BlurFade delay={0.25} inView>
+          <div className="mb-8">
+            <h2 className="text-4xl font-bold leading-tight tracking-tight">
+              Find your favorite recipes
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
+              quos.
+            </p>
+            <Button variant={"link"} asChild>
+              <Link to="/recipes">Explore all recipes &rarr;</Link>
+            </Button>
+          </div>
+        </BlurFade>
         {recipeImages.map((imageUrl, idx) => (
           <div key={idx} className="break-inside-avoid">
             <RecipeCard
@@ -49,25 +51,27 @@ export default function HomePage() {
                 views: 27,
                 likes: 3,
               }}
-              delay={0.25 + idx * 0.15}
+              delay={0.25 + idx * 0.05}
             />
           </div>
         ))}
       </div>
 
-      <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4 [column-fill:_balance]">
-        <div className="mb-8">
-          <h2 className="text-4xl font-bold leading-tight tracking-tight">
-            Welcome to the community!
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            This is the community page. Here you can find all the posts and
-            comments.
-          </p>
-          <Button variant={"link"} asChild>
-            <Link to="/community">Explore all posts &rarr;</Link>
-          </Button>
-        </div>
+      <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4 [column-fill:_balance] p-4 md:p-0">
+        <BlurFade delay={0.25}>
+          <div className="mb-8">
+            <h2 className="text-4xl font-bold leading-tight tracking-tight">
+              Welcome to the community!
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              This is the community page. Here you can find all the posts and
+              comments.
+            </p>
+            <Button variant={"link"} asChild>
+              <Link to="/community">Explore all posts &rarr;</Link>
+            </Button>
+          </div>
+        </BlurFade>
         {postImages.map((imageUrl, idx) => (
           <div key={idx} className="break-inside-avoid">
             <PostCard
@@ -83,7 +87,7 @@ export default function HomePage() {
                 likes: 12,
               }}
               imageUrl={imageUrl}
-              delay={0.25 + idx * 0.15}
+              delay={0.25 + idx * 0.25}
             />
           </div>
         ))}

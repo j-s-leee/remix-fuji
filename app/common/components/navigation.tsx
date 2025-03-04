@@ -31,7 +31,7 @@ import {
 const menus = [
   {
     name: "Recipes",
-    to: "/recipes",
+    to: "/recipes/leaderboards",
     items: [
       {
         name: "Leaderboard",
@@ -106,7 +106,9 @@ export default function Navigation({
                 {menu.items ? (
                   <>
                     <Link to={menu.to}>
-                      <NavigationMenuTrigger>{menu.name}</NavigationMenuTrigger>
+                      <NavigationMenuTrigger className="cursor-pointer">
+                        {menu.name}
+                      </NavigationMenuTrigger>
                     </Link>
                     <NavigationMenuContent>
                       <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -120,7 +122,7 @@ export default function Navigation({
                             ])}
                           >
                             <NavigationMenuLink asChild>
-                              <Link to={item.to}>
+                              <Link to={item.to} className="h-full">
                                 <span className="text-sm font-medium leading-none">
                                   {item.name}
                                 </span>

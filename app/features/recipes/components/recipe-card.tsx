@@ -19,7 +19,7 @@ export function RecipeCard({
   imageUrl,
   filmSimulation,
   stats,
-  delay = 0,
+  delay = 0.25,
 }: RecipeCardProps) {
   return (
     <Link to={`/recipes/${id}`} className="relative block">
