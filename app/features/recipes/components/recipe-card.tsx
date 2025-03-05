@@ -34,25 +34,25 @@ export function RecipeCard({
           <Button
             variant={"ghost"}
             size={"sm"}
-            className="bg-background/80 backdrop-blur-sm"
+            className="text-xs bg-background/30 backdrop-blur-sm"
           >
-            <EyeIcon className="size-4" />
+            <EyeIcon className="size-3" />
             {stats.views}
           </Button>
           <Button
             variant={"ghost"}
             size={"sm"}
-            className="bg-background/80 backdrop-blur-sm"
+            className="text-xs bg-background/30 backdrop-blur-sm"
           >
-            <HeartIcon className="size-4" />
+            <HeartIcon className="size-3" />
             {stats.likes}
           </Button>
           <Button
             variant={"ghost"}
             size={"sm"}
-            className="bg-background/80 backdrop-blur-sm"
+            className="text-xs bg-background/30 backdrop-blur-sm"
           >
-            <FilmIcon className="size-4" />
+            <FilmIcon className="size-3" />
             {filmSimulation}
           </Button>
         </div>
