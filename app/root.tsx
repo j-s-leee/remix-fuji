@@ -6,7 +6,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-import { useEffect } from "react";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -27,21 +26,8 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleChange = (e: MediaQueryListEvent) => {
-      document.documentElement.classList.toggle("dark", e.matches);
-    };
-
-    // 초기 상태 설정
-    document.documentElement.classList.toggle("dark", mediaQuery.matches);
-
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, []);
-
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

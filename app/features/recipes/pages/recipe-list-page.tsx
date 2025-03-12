@@ -13,6 +13,7 @@ import { BlurFade } from "~/common/components/magicui/blur-fade";
 import { Button } from "~/common/components/ui/button";
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
@@ -21,11 +22,8 @@ import {
 } from "~/common/components/ui/drawer";
 import { Toggle } from "~/common/components/ui/toggle";
 import { CAMERA_MODELS, FILM_SIMULATIONS, IMAGE_SENSORS } from "../constants";
-import { useState } from "react";
 import { Separator } from "~/common/components/ui/separator";
-import { Badge } from "~/common/components/ui/badge";
 
-// 서버 사이드에서도 사용 가능한 방식으로 이미지 URL 생성
 const recipeImages = Array.from({ length: 20 }, (_, i) => ({
   id: i + 1,
   url: `https://picsum.photos/seed/${i + 1}/800/600`,
@@ -33,65 +31,27 @@ const recipeImages = Array.from({ length: 20 }, (_, i) => ({
 
 export default function RecipeListPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [viewMode, setViewMode] = useState(searchParams.get("view") || "grid");
-  const [selectedCamera, setSelectedCamera] = useState(
-    searchParams.get("camera") || ""
-  );
-  const [selectedSensor, setSelectedSensor] = useState(
-    searchParams.get("sensor") || ""
-  );
-  const [selectedFilm, setSelectedFilm] = useState(
-    searchParams.get("film") || ""
-  );
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleApply = () => {
-    const params = new URLSearchParams();
-    if (selectedCamera) params.set("camera", selectedCamera);
-    if (selectedSensor) params.set("sensor", selectedSensor);
-    if (selectedFilm) params.set("film", selectedFilm);
-    setSearchParams(params);
-    setIsOpen(false);
-  };
+  const viewMode = searchParams.get("view") || "grid";
+  const selectedCamera = searchParams.get("camera") || "";
+  const selectedSensor = searchParams.get("sensor") || "";
+  const selectedFilm = searchParams.get("film") || "";
 
   const toggleViewMode = () => {
-    setViewMode((prev) => (prev === "grid" ? "list" : "grid"));
-    setSearchParams((prev) => {
-      prev.set("view", prev.get("view") === "grid" ? "list" : "grid");
-      return prev;
-    });
+    searchParams.set("view", viewMode === "grid" ? "list" : "grid");
+    setSearchParams(searchParams);
   };
 
   const handleReset = () => {
-    setViewMode("grid");
-    setSelectedCamera("");
-    setSelectedSensor("");
-    setSelectedFilm("");
-    setSearchParams((prev) => {
-      prev.delete("camera");
-      prev.delete("sensor");
-      prev.delete("film");
-      return prev;
-    });
-    setIsOpen(false);
+    searchParams.set("camera", "");
+    searchParams.set("sensor", "");
+    searchParams.set("film", "");
+    searchParams.set("view", "grid");
+    setSearchParams(searchParams);
   };
 
   const handleRemoveFilter = (filter: string) => {
-    setSearchParams((prev) => {
-      prev.delete(filter);
-      return prev;
-    });
-    switch (filter) {
-      case "camera":
-        setSelectedCamera("");
-        break;
-      case "sensor":
-        setSelectedSensor("");
-        break;
-      case "film":
-        setSelectedFilm("");
-        break;
-    }
+    searchParams.delete(filter);
+    setSearchParams(searchParams);
   };
 
   return (
@@ -206,7 +166,7 @@ export default function RecipeListPage() {
           ))}
         </div>
       )}
-      <Drawer open={isOpen} onOpenChange={setIsOpen}>
+      <Drawer>
         <DrawerTrigger asChild>
           <Button
             variant={"outline"}
@@ -231,7 +191,8 @@ export default function RecipeListPage() {
                   key={camera.value}
                   pressed={selectedCamera === camera.value}
                   onPressedChange={(pressed) => {
-                    setSelectedCamera(pressed ? camera.value : "");
+                    searchParams.set("camera", pressed ? camera.value : "");
+                    setSearchParams(searchParams);
                   }}
                 >
                   {camera.label}
@@ -250,7 +211,8 @@ export default function RecipeListPage() {
                   key={sensor.value}
                   pressed={selectedSensor === sensor.value}
                   onPressedChange={(pressed) => {
-                    setSelectedSensor(pressed ? sensor.value : "");
+                    searchParams.set("sensor", pressed ? sensor.value : "");
+                    setSearchParams(searchParams);
                   }}
                 >
                   {sensor.label}
@@ -269,7 +231,8 @@ export default function RecipeListPage() {
                   key={film.value}
                   pressed={selectedFilm === film.value}
                   onPressedChange={(pressed) => {
-                    setSelectedFilm(pressed ? film.value : "");
+                    searchParams.set("film", pressed ? film.value : "");
+                    setSearchParams(searchParams);
                   }}
                 >
                   {film.label}
@@ -285,13 +248,11 @@ export default function RecipeListPage() {
             >
               초기화
             </Button>
-            <Button
-              variant={"default"}
-              onClick={handleApply}
-              className="h-12 text-lg"
-            >
-              적용
-            </Button>
+            <DrawerClose asChild>
+              <Button variant={"default"} className="h-12 text-lg">
+                적용
+              </Button>
+            </DrawerClose>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
