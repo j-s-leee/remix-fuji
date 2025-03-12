@@ -31,22 +31,12 @@ import {
 const menus = [
   {
     name: "Recipes",
-    to: "/recipes/leaderboards",
+    to: "/recipes",
     items: [
       {
-        name: "Leaderboard",
-        description: "View all recipes",
-        to: "/recipes/leaderboards",
-      },
-      {
-        name: "Film Simulations",
-        description: "See the recipes for each film simulation",
-        to: "/recipes/film-simulations",
-      },
-      {
-        name: "Cameras",
-        description: "See the recipes for each camera",
-        to: "/recipes/cameras",
+        name: "All Recipes",
+        description: "See all recipes",
+        to: "/recipes",
       },
       {
         name: "Create Recipe",
@@ -93,7 +83,7 @@ export default function Navigation({
   hasNotifications: boolean;
 }) {
   return (
-    <nav className="flex px-20 h-16 items-center justify-between backdrop-blur fixed top-0 left-0 right-0 z-50 bg-background/50">
+    <nav className="hidden md:flex px-20 h-16 items-center justify-between backdrop-blur fixed top-0 left-0 right-0 z-50 bg-background/50">
       <div className="flex items-center">
         <Link to="/" className="font-bold text-lg tracking-tighter">
           Recipe App
