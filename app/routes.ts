@@ -17,4 +17,8 @@ export default [
     route("create", "features/community/pages/community-create-page.tsx"),
     route("top", "features/community/pages/community-top-page.tsx"),
   ]),
+  ...prefix("my", [
+    route("notifications", "features/my/pages/notifications-page.tsx"),
+    route("profile", "features/my/pages/profile-page.tsx"),
+  ]),
 ] satisfies RouteConfig;
