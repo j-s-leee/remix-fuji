@@ -1,4 +1,4 @@
-import { UserIcon, ScrollTextIcon, PencilIcon, BellIcon } from "lucide-react";
+import { UserIcon, ScrollTextIcon, PencilIcon } from "lucide-react";
 import { Link, useLocation } from "react-router";
 import { Button } from "./ui/button";
 
@@ -14,13 +14,8 @@ const navigationItems = [
     icon: ScrollTextIcon,
   },
   {
-    label: "알림",
-    href: "/my/notifications",
-    icon: BellIcon,
-  },
-  {
     label: "프로필",
-    href: "/my/profile",
+    href: "/my",
     icon: UserIcon,
   },
 ];

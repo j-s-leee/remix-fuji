@@ -1,4 +1,5 @@
 import { ArrowLeftIcon, BookmarkIcon, MoreHorizontalIcon } from "lucide-react";
+import { Link } from "react-router";
 import { Avatar, AvatarImage } from "~/common/components/ui/avatar";
 import { Button } from "~/common/components/ui/button";
 import {
@@ -20,8 +21,10 @@ export default function ProfilePage() {
     <>
       <div className="fixed top-0 left-0 w-full h-15 z-50 bg-background">
         <div className="flex items-center justify-between p-3">
-          <Button variant={"ghost"} size={"icon"}>
-            <ArrowLeftIcon className="size-6" />
+          <Button variant={"ghost"} size={"icon"} asChild>
+            <Link to="/my">
+              <ArrowLeftIcon className="size-6" />
+            </Link>
           </Button>
           <Button variant={"ghost"} size={"icon"}>
             <MoreHorizontalIcon className="size-6" />
@@ -59,7 +62,7 @@ export default function ProfilePage() {
         <Tabs defaultValue="recipes" className="w-full">
           <TabsList className="w-full justify-start">
             <TabsTrigger value="recipes">레시피</TabsTrigger>
-            <TabsTrigger value="likes">좋아요를 누른 컨텐츠</TabsTrigger>
+            <TabsTrigger value="likes">즐겨찾기</TabsTrigger>
           </TabsList>
           <TabsContent value="recipes">
             <div className="gap-0.5 grid grid-cols-2">

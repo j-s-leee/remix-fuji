@@ -18,6 +18,7 @@ export default [
     route("top", "features/community/pages/community-top-page.tsx"),
   ]),
   ...prefix("my", [
+    index("features/my/pages/my-page.tsx"),
     route("notifications", "features/my/pages/notifications-page.tsx"),
     route("profile", "features/my/pages/profile-page.tsx"),
   ]),

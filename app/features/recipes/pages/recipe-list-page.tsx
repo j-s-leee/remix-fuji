@@ -7,6 +7,7 @@ import {
   Table,
   SlidersHorizontalIcon,
   ScrollTextIcon,
+  BookmarkIcon,
 } from "lucide-react";
 import { Link, useSearchParams } from "react-router";
 import { BlurFade } from "~/common/components/magicui/blur-fade";
@@ -23,6 +24,7 @@ import {
 import { Toggle } from "~/common/components/ui/toggle";
 import { CAMERA_MODELS, FILM_SIMULATIONS, IMAGE_SENSORS } from "../constants";
 import { Separator } from "~/common/components/ui/separator";
+import { Avatar, AvatarImage } from "~/common/components/ui/avatar";
 
 const recipeImages = Array.from({ length: 20 }, (_, i) => ({
   id: i + 1,
@@ -117,15 +119,30 @@ export default function RecipeListPage() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-0.5 md:py-0 md:px-4 pb-20 pt-15">
           {recipeImages.map((image) => (
             <BlurFade delay={0.5 + image.id * 0.05} key={image.id}>
-              <Link
-                to={`/recipes/${image.id}`}
-                className="relative aspect-[4/3] w-full"
-              >
+              <Link to={`/recipes/${image.id}`} className="">
                 <img
                   src={image.url}
                   alt="recipe"
-                  className="w-full h-full object-cover"
+                  className="aspect-[4/3] w-full object-cover"
                 />
+                <div className="p-2 bg-accent/50 flex justify-between">
+                  <div className="flex flex-col gap-1">
+                    <p className="font-semibold">title</p>
+                    <p className="flex items-center gap-1">
+                      <Avatar className="size-4">
+                        <AvatarImage src="https://github.com/shadcn.png" />
+                      </Avatar>
+                      <span className="text-xs text-muted-foreground">
+                        username
+                      </span>
+                    </p>
+                  </div>
+
+                  <span className="font-light flex items-center gap-1">
+                    <BookmarkIcon className="size-4" />
+                    <span>10K</span>
+                  </span>
+                </div>
               </Link>
             </BlurFade>
           ))}
