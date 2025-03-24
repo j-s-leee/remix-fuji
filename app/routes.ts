@@ -19,6 +19,7 @@ export default [
   ]),
   ...prefix("my", [
     index("features/my/pages/my-page.tsx"),
+    route("edit-profile", "features/my/pages/edit-profile-page.tsx"),
     route("notifications", "features/my/pages/notifications-page.tsx"),
     route("profile", "features/my/pages/profile-page.tsx"),
   ]),

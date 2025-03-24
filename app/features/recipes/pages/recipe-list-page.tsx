@@ -24,7 +24,11 @@ import {
 import { Toggle } from "~/common/components/ui/toggle";
 import { CAMERA_MODELS, FILM_SIMULATIONS, IMAGE_SENSORS } from "../constants";
 import { Separator } from "~/common/components/ui/separator";
-import { Avatar, AvatarImage } from "~/common/components/ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "~/common/components/ui/avatar";
 
 const recipeImages = Array.from({ length: 20 }, (_, i) => ({
   id: i + 1,
@@ -39,7 +43,7 @@ export default function RecipeListPage() {
   const selectedFilm = searchParams.get("film") || "";
 
   const toggleViewMode = () => {
-    searchParams.set("view", viewMode === "grid" ? "list" : "grid");
+    searchParams.set("view", viewMode === "grid" ? "card" : "grid");
     setSearchParams(searchParams);
   };
 
@@ -148,7 +152,7 @@ export default function RecipeListPage() {
           ))}
         </div>
       )}
-      {viewMode === "list" && (
+      {viewMode === "card" && (
         <div className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-0.5 md:py-0 pb-20 space-y-10 pt-15">
           {recipeImages.map((image) => (
             <BlurFade delay={0.5 + image.id * 0.05} key={image.id}>
@@ -159,25 +163,27 @@ export default function RecipeListPage() {
                   className="w-full object-cover"
                 />
               </Link>
-              <div className="grid grid-cols-2 gap-2 text-muted-foreground p-4">
-                <ul className="gap-0.5">
-                  <li className="flex gap-2 items-center">
-                    <ScrollTextIcon className="size-4" />
-                    SUPERIA 800
-                  </li>
-                  <li className="flex gap-2 items-center">
-                    <CameraIcon className="size-4" />
-                    X-T4
-                  </li>
-                </ul>
-                <ul className="flex flex-col gap-0.5">
-                  <li className="flex gap-2">35mm</li>
-                  <li className="flex gap-2">1/1000s</li>
-                  <li className="flex gap-2">
-                    <span className="italic">f</span>2.8
-                  </li>
-                  <li className="flex gap-2">ISO 100</li>
-                </ul>
+              <div className="flex flex-col p-4">
+                <div className="flex justify-between">
+                  <span className="text-lg font-semibold">SUPERIA 800</span>
+                  <Button className="flex gap-2 items-center" variant={"ghost"}>
+                    <BookmarkIcon className="size-5" /> 12
+                  </Button>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="flex gap-2">
+                    <Avatar>
+                      <AvatarImage src="https://github.com/j-s-leee.png" />
+                      <AvatarFallback>A</AvatarFallback>
+                    </Avatar>
+                    username
+                  </span>
+                  <div className="text-sm text-muted-foreground flex gap-1">
+                    <span>2일전</span>
+                    <span>·</span>
+                    <span>1개의 댓글</span>
+                  </div>
+                </div>
               </div>
             </BlurFade>
           ))}
