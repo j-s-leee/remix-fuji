@@ -1,6 +1,7 @@
 import {
   ArrowLeftIcon,
   BookmarkIcon,
+  InstagramIcon,
   PencilIcon,
   SettingsIcon,
 } from "lucide-react";
@@ -14,6 +15,7 @@ import {
   TabsTrigger,
 } from "~/common/components/ui/tabs";
 import { BlurFade } from "~/common/components/magicui/blur-fade";
+import { Separator } from "~/common/components/ui/separator";
 
 const recipeImages = Array.from({ length: 20 }, (_, i) => ({
   id: i + 1,
@@ -36,40 +38,33 @@ export default function MyPage() {
             </Link>
           </Button>
         </div>
-        <div className="flex flex-col px-3">
-          <div className="flex flex-col items-center gap-2">
-            <Avatar className="size-28">
-              <AvatarImage src="https://github.com/shadcn.png" />
-            </Avatar>
-            <div className="flex flex-col gap-1">
-              <p className="text-lg font-bold">username</p>
-              <span className="text-sm text-muted-foreground">@j-s-leee</span>
+
+        <div className="flex items-center gap-2">
+          <Avatar className="size-20">
+            <AvatarImage src="https://github.com/shadcn.png" />
+          </Avatar>
+          <div className="flex flex-col gap-2">
+            <p className="text-xl">username</p>
+            <div className="flex gap-2 text-center">
+              <span className="text-sm text-muted-foreground">팔로워</span>
+              <span className="text-sm">123</span>
+              <Separator orientation="vertical" />
+              <span className="text-sm text-muted-foreground">팔로잉</span>
+              <span className="text-sm">2</span>
             </div>
           </div>
         </div>
-        <p className="text-sm text-muted-foreground px-8">
-          take photo with x-t4, x100v and fujifilm x-e4
+
+        <p className="text-sm text-muted-foreground">
+          X-T4를 사용하고 있어요.
           <br />
-          take photo with x-t4, x100v and fujifilm x-e4 take photo ...
+          클래식 크롬을 제일 좋아해요.
         </p>
-        <div className="grid grid-cols-4 items-center p-3">
-          <div className="flex flex-col items-center">
-            <span className="text-lg font-bold">1</span>
-            <span className="text-sm text-muted-foreground">팔로워</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-lg font-bold">1.2K</span>
-            <span className="text-sm text-muted-foreground">팔로잉</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-lg font-bold">1M</span>
-            <span className="text-sm text-muted-foreground">좋아요</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-lg font-bold">142</span>
-            <span className="text-sm text-muted-foreground">북마크</span>
-          </div>
-        </div>
+        <span className="text-sm text-muted-foreground flex items-center gap-1">
+          <InstagramIcon className="size-4" />
+          j-s-leee
+        </span>
+
         <Button variant={"outline"} className="w-full" asChild>
           <Link to="/my/edit-profile">
             <PencilIcon className="size-4" />
@@ -82,13 +77,13 @@ export default function MyPage() {
         <Button variant={"default"} className="w-full">
           팔로잉
         </Button>
-        <Tabs defaultValue="recipes">
+        <Tabs defaultValue="recipes" className="pb-20">
           <TabsList className="grid w-full grid-cols-2 h-fit">
             <TabsTrigger value="recipes">
-              <span className="">레시피</span>
+              레시피 <span className="text-xs">123</span>
             </TabsTrigger>
             <TabsTrigger value="photos">
-              <span className="">사진</span>
+              사진 <span className="text-xs">547</span>
             </TabsTrigger>
           </TabsList>
           <TabsContent value="recipes">
