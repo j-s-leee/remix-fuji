@@ -6,7 +6,7 @@ import {
   SettingsIcon,
 } from "lucide-react";
 import { Button } from "~/common/components/ui/button";
-import { Link } from "react-router";
+import { Link, useParams, useSearchParams } from "react-router";
 import { Avatar, AvatarImage } from "~/common/components/ui/avatar";
 import {
   Tabs,
@@ -22,18 +22,22 @@ const recipeImages = Array.from({ length: 20 }, (_, i) => ({
   url: `https://picsum.photos/seed/${i + 1}/800/600`,
 }));
 
-export default function MyPage() {
+export default function ProfilePage() {
+  const { profileId } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tab = searchParams.get("tab") || "recipes";
+
   return (
     <>
       <div className="w-full h-15 z-50 bg-background p-4 space-y-4">
         <div className="flex items-center justify-between gap-2">
           <Button variant={"ghost"} size={"icon"} asChild>
-            <Link to="/my">
+            <Link to={`/profile/${profileId}`}>
               <ArrowLeftIcon className="size-6" />
             </Link>
           </Button>
           <Button variant={"ghost"} size={"icon"} asChild>
-            <Link to="/my/settings">
+            <Link to={`/profile/${profileId}/settings`}>
               <SettingsIcon className="size-6" />
             </Link>
           </Button>
@@ -44,7 +48,7 @@ export default function MyPage() {
             <AvatarImage src="https://github.com/shadcn.png" />
           </Avatar>
           <div className="flex flex-col gap-2">
-            <p className="text-xl">username</p>
+            <p className="text-xl">{profileId}</p>
             <div className="flex gap-2 text-center">
               <span className="text-sm text-muted-foreground">팔로워</span>
               <span className="text-sm">123</span>
@@ -66,7 +70,7 @@ export default function MyPage() {
         </span>
 
         <Button variant={"outline"} className="w-full" asChild>
-          <Link to="/my/edit-profile">
+          <Link to={`/profile/${profileId}/edit`}>
             <PencilIcon className="size-4" />
             프로필 수정
           </Link>
@@ -77,7 +81,13 @@ export default function MyPage() {
         <Button variant={"default"} className="w-full">
           팔로잉
         </Button>
-        <Tabs defaultValue="recipes" className="pb-20">
+        <Tabs
+          defaultValue={tab}
+          onValueChange={(value) => {
+            setSearchParams({ tab: value });
+          }}
+          className="pb-20"
+        >
           <TabsList className="grid w-full grid-cols-2 h-fit">
             <TabsTrigger value="recipes">
               레시피 <span className="text-xs">123</span>
@@ -127,7 +137,11 @@ export default function MyPage() {
             <div className="grid grid-cols-2 gap-2">
               {recipeImages.map((image) => (
                 <BlurFade delay={0.5 + image.id * 0.05} key={image.id}>
-                  <Link to={`/recipes/${image.id}`} className="">
+                  <Link
+                    to={`/profile/${profileId}/photos`}
+                    className="block"
+                    state={{ scrollToId: `photo-${image.id}` }}
+                  >
                     <img
                       src={image.url}
                       alt="recipe"

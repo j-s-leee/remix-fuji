@@ -1,7 +1,6 @@
 import { Link } from "react-router";
 import Particle from "~/features/recipes/components/particle";
 import { Button } from "../components/ui/button";
-import { PostCard } from "~/features/community/components/post-card";
 import { RecipeCard } from "~/features/recipes/components/recipe-card";
 import { BlurFade } from "~/common/components/magicui/blur-fade";
 const postImages = Array.from({ length: 8 }, (_, i) => {
@@ -72,25 +71,6 @@ export default function HomePage() {
             </Button>
           </div>
         </BlurFade>
-        {postImages.map((imageUrl, idx) => (
-          <div key={idx} className="break-inside-avoid">
-            <PostCard
-              id={idx}
-              authorName="j-s-leee"
-              avatar="https://github.com/shadcn.png"
-              title="title of post"
-              content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
-              createdAt="1일전"
-              stats={{
-                views: 123,
-                comments: 3,
-                likes: 12,
-              }}
-              imageUrl={imageUrl}
-              delay={0.25 + idx * 0.25}
-            />
-          </div>
-        ))}
       </div>
     </main>
   );

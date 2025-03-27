@@ -15,7 +15,7 @@ const navigationItems = [
   },
   {
     label: "프로필",
-    href: "/my",
+    href: "/profile/j-s-leee",
     icon: UserIcon,
   },
 ];

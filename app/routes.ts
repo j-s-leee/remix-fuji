@@ -10,17 +10,16 @@ export default [
   ...prefix("recipes", [
     index("features/recipes/pages/recipe-list-page.tsx"),
     route("create", "features/recipes/pages/recipe-create-page.tsx"),
-    route("/:recipeId", "features/recipes/pages/recipe-detail-page.tsx"),
+    route(":recipeId", "features/recipes/pages/recipe-detail-page.tsx"),
+    route(
+      ":recipeId/photos/:photoId",
+      "features/recipes/pages/recipe-photo-detail-page.tsx"
+    ),
   ]),
-  ...prefix("community", [
-    index("features/community/pages/community-list-page.tsx"),
-    route("create", "features/community/pages/community-create-page.tsx"),
-    route("top", "features/community/pages/community-top-page.tsx"),
-  ]),
-  ...prefix("my", [
-    index("features/my/pages/my-page.tsx"),
-    route("edit-profile", "features/my/pages/edit-profile-page.tsx"),
-    route("notifications", "features/my/pages/notifications-page.tsx"),
-    route("profile", "features/my/pages/profile-page.tsx"),
+  ...prefix("profile", [
+    route(":profileId", "features/profile/pages/profile-page.tsx"),
+    route(":profileId/edit", "features/profile/pages/edit-profile-page.tsx"),
+    route(":profileId/settings", "features/profile/pages/settings-page.tsx"),
+    route(":profileId/photos", "features/profile/pages/photo-list-page.tsx"),
   ]),
 ] satisfies RouteConfig;
